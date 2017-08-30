@@ -26,6 +26,7 @@ class WikisController < ApplicationController
   end
 
   def update
+    authorize @wiki
     if @wiki.update(wiki_params)
       redirect_to wiki_path(@wiki)
     else
