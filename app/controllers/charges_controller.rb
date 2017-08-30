@@ -16,8 +16,8 @@ class ChargesController < ApplicationController
     )
 
     flash[:notice] = "Thanks for all the money, #{current_user.email}! Feel free to pay me again."
-    current_user.role = :premium
-    redirect_to root_path(current_user) # or wherever
+    current_user.premium!
+    redirect_to root_path
 
     # Stripe will send back CardErrors, with friendly messages
     # when something goes wrong.
@@ -34,4 +34,5 @@ class ChargesController < ApplicationController
       amount: Amount.default
     }
   end
+
 end
