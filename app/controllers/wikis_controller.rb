@@ -2,7 +2,7 @@ class WikisController < ApplicationController
   before_action :find_wiki, only: [:show, :edit, :update, :destroy]
 
   def index
-    @wikis = Wiki.all
+    @wikis = policy_scope(Wiki)
   end
 
   def show
@@ -13,7 +13,7 @@ class WikisController < ApplicationController
   end
 
   def create
-    @wiki = Wiki.new(wiki_params)
+    @wiki = current_user.wikis.new(wiki_params)
 
     if @wiki.save
       redirect_to wikis_path
@@ -26,7 +26,7 @@ class WikisController < ApplicationController
   end
 
   def update
-    
+
     if @wiki.update(wiki_params)
       redirect_to wiki_path(@wiki)
     else

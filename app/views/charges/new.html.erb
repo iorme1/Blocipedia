@@ -1,5 +1,6 @@
 <% if current_user.premium? %>
   <% current_user.standard! %>
+  <% current_user.wikis.update_all private: false %>
 <% else %>
   <%= form_tag charges_path do %>
     <h4>Click button to upgrade to a Premium Membership!</h4>
