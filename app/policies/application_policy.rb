@@ -23,6 +23,7 @@ class ApplicationPolicy
   end
 
   def update?
+    authorize @wiki
     user.present?
   end
 
