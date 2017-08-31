@@ -7,7 +7,6 @@ class ChargesController < ApplicationController
       card: params[:stripeToken]
     )
 
-    # Where the real magic happens
     charge = Stripe::Charge.create(
       customer: customer.id, # Note -- this is NOT the user_id in your app
       amount: Amount.default,
@@ -15,13 +14,13 @@ class ChargesController < ApplicationController
       currency: 'usd'
     )
 
-    flash[:notice] = "Thanks for all the money, #{current_user.email}! Feel free to pay me again."
-    current_user.premium!
-    redirect_to root_path
+    if charge.paid?
+      flash[:notice] = "Thanks for all the money, #{current_user.email}! Feel free to pay me again."
+      current_user.premium!
+      redirect_to root_path
+    end
 
-    # Stripe will send back CardErrors, with friendly messages
-    # when something goes wrong.
-    # This `rescue block` catches and displays those errors.
+
     rescue Stripe::CardError => e
       flash[:alert] = e.message
       redirect_to new_charge_path
