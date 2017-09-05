@@ -17,7 +17,9 @@ class WikisController < ApplicationController
 
     if @wiki.save
       redirect_to wikis_path
+      flash[:notice] = "Wiki successfully created!"
     else
+      flash[:error] = "Wiki was not created. Please try again."
       render 'new'
     end
   end
@@ -30,14 +32,21 @@ class WikisController < ApplicationController
 
     if @wiki.update(wiki_params)
       redirect_to wiki_path(@wiki)
+      flash[:notice] = "Wiki successfully updated!"
     else
+      flash[:error] = "Wiki was not updated. Please try again."
       render 'edit'
     end
   end
 
   def destroy
-    @wiki.destroy
-    redirect_to wikis_path
+    if @wiki.destroy
+      redirect_to wikis_path
+      flash[:notice] = "Wiki succesfully removed!"
+    else
+      redirect_to wikis_path
+      flash[:error] = "Wiki was not removed. Please try again."
+    end
   end
 
   private
@@ -49,7 +58,5 @@ class WikisController < ApplicationController
   def find_wiki
     @wiki = Wiki.find(params[:id])
   end
-
-
 
 end
