@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     resources :collaborators, only: [:new, :create, :destroy]
   end
 
+
   resources :charges, only: [:new, :create]
 
   resources :downgrades, only: [:create]
