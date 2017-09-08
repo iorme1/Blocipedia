@@ -1,4 +1,15 @@
 class WikiPolicy < ApplicationPolicy
+  attr_reader :wiki, :user
+
+  def initialize(user, wiki)
+    @user = user 
+    @wiki = wiki
+  end
+
+  def update?
+    user.admin? || wiki.user == user || wiki.collaborating_users.include?(user)
+  end
+
 
   class Scope
     attr_reader :user, :scope
