@@ -5,9 +5,10 @@ class CollaboratorsController < ApplicationController
   end
 
   def create
-    @collaborator = Collaborator.new(wiki_id: @wiki.id, user_id: params[:user_id])
+    @collaborator = @wiki.collaborators.new(wiki_id: @wiki.id, user_id: params[:format])
+    @collaborator.save
 
-    if @collaborator.save!
+    if @collaborator.save
       redirect_to wiki_path(@wiki)
       flash[:notice] = "Collaborator succesfully added to this wiki!"
     else
@@ -33,4 +34,5 @@ class CollaboratorsController < ApplicationController
   def get_current_wiki
     @wiki = Wiki.find(params[:wiki_id])
   end
+
 end

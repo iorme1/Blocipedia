@@ -2,5 +2,6 @@
 <div class="row">
   <div class="col-md-8">
     <%= render 'form' %>
-    </div>
+    <%= render partial: 'collaborators/form', locals: { wiki: @wiki } %>
   </div>
+</div>
