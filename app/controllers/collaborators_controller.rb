@@ -5,7 +5,8 @@ class CollaboratorsController < ApplicationController
   end
 
   def create
-    @collaborator = @wiki.collaborators.new(wiki_id: @wiki.id, user_id: params[:format])
+    user = User.find(params[:user_id])
+    @collaborator = @wiki.collaborators.new(wiki: @wiki, user: user)
     @collaborator.save
 
     if @collaborator.save
