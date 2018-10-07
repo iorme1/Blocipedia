@@ -1,6 +1,6 @@
 class WikisController < ApplicationController
   before_action :find_wiki, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_user!, except: [:index, :show]
   def index
     @wikis = policy_scope(Wiki)
   end

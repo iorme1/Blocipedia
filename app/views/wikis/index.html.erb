@@ -11,8 +11,10 @@
 <div class="row text-center">
   <div class="col-md-12">
     <h3 class="text-center create-wiki-title">
-      <%= link_to new_wiki_path, class: "btn btn-primary btn-lg create-wiki-btn" do %>
-        Create New Wiki <i class="glyphicon glyphicon-plus"></i>
+      <% if current_user %>
+        <%= link_to new_wiki_path, class: "btn btn-primary btn-lg create-wiki-btn" do %>
+          Create New Wiki <i class="glyphicon glyphicon-plus"></i>
+        <% end %>
       <% end %>
     </h3>
   </div>
