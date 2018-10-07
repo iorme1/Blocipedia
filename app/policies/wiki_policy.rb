@@ -36,7 +36,7 @@ class WikiPolicy < ApplicationPolicy
       else #guest user
         wikis = scope.all.select { |wiki| !wiki.private? }
       end
-      wikis
+      wikis.sort_by(&:created_at).reverse
     end
   end
 end

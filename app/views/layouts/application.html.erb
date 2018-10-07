@@ -12,7 +12,6 @@
     <%= render 'layouts/messages' %>
     <ul class="nav nav-tabs">
        <li><%= link_to "Blocipedia", wikis_path %></li>
-       <li><%= link_to "About", about_path %></li>
        <div class="pull-right">
          <% if user_signed_in? %>
            Signed in as: <strong><%= current_user.email %></strong> |
